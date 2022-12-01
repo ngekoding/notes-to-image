@@ -19,6 +19,7 @@ body {
 #app {
   max-width: 600px;
   margin: 0 auto;
+  padding-bottom: 20px;
   > header {
     text-align: center;
     margin-top: 20px;
@@ -119,15 +120,38 @@ body {
     line-height: 15px;
     display: none;
   }
+  .editor-frame {
+    position: relative;
+    img.frame-corner {
+      width: 10px;
+      position: absolute;
+      background: $colorLight;
+      z-index: 1;
+      &:first-child {
+        top: 0;
+        left: 0;
+      }
+      &:nth-child(2) {
+        top: 0;
+        right: 0;
+        transform: scaleX(-1);
+      }
+      &:nth-child(3) {
+        bottom: 0;
+        left: 0;
+        transform: scaleY(-1);
+      }
+      &:nth-child(4) {
+        bottom: 0;
+        right: 0;
+        transform: scale(-1, -1)
+      }
+    }
+  }
   .ProseMirror {
     padding: 15px;
     border: 1px solid $colorGray;
-    border-radius: 8px;
-    // border: 12px solid;
-    // border-image-source: url('../assets/frame.png');
-    // border-image-slice: 9;
-    // border-image-repeat: repeat;
-    
+
     p.is-editor-empty:first-child::before {
       content: attr(data-placeholder);
       float: left;

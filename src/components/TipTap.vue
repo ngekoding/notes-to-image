@@ -1,5 +1,5 @@
 <script setup>
-import { watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { useEditor, EditorContent, BubbleMenu } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
@@ -10,6 +10,23 @@ import { camelCase, pascalCase } from 'change-case'
 
 const props = defineProps(['modelValue'])
 const emit = defineEmits(['update:modelValue'])
+
+const editorRef = ref(null)
+
+/**
+ * In the world or css we can use `border-image` only,
+ * but it is unsupported by html-to-image.
+ * So here is the alternative.
+ */
+onMounted(() => {
+  const cornerImage = new Image()
+  const cornerImageUrl = new URL('../assets/frame-top-left-corner.svg', import.meta.url).href
+  cornerImage.src = cornerImageUrl
+  cornerImage.className = 'frame-corner'
+  for (let i = 1; i <= 4; i++) {
+    editorRef.value.$el.appendChild(cornerImage.cloneNode(true))
+  }
+})
 
 const editor = useEditor({
   content: props.modelValue,
@@ -145,7 +162,11 @@ const format = (action) => {
     </div>
   </div>
   <div class="editor-container">
-    <editor-content :editor="editor" spellcheck="false" />
+    <editor-content 
+      ref="editorRef"
+      :editor="editor"
+      spellcheck="false"
+      class="editor-frame" />
     <footer>
       Dibuat dengan <b>Berbagi Catatan</b><br>
       s.id/berbagi-catatan
