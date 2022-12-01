@@ -8,6 +8,7 @@ import Subscript from '@tiptap/extension-subscript'
 import Placeholder from '@tiptap/extension-placeholder'
 import FontFamily from '@tiptap/extension-font-family'
 import TextStyle from '@tiptap/extension-text-style'
+import TextAlign from '@tiptap/extension-text-align'
 import { camelCase, pascalCase } from 'change-case'
 
 const props = defineProps(['modelValue'])
@@ -39,6 +40,9 @@ const editor = useEditor({
     Subscript,
     TextStyle,
     FontFamily,
+    TextAlign.configure({
+      types: ['paragraph'],
+    }),
     Placeholder.configure({
       placeholder: 'Mulai menulis...',
     })
@@ -58,14 +62,21 @@ watch(props.modelValue, (value) => {
 
 const isActive = (action, attributes = {}) => {
   if (!editor.value) return false
-  const name = camelCase(action)
+  let name = action
+  if (typeof action === 'string') {
+    name = camelCase(action)
+  }
   return editor.value.isActive(name, attributes)
 }
 
-const format = (action) => {
+const format = (action, attributes = {}) => {
   const focus = editor.value.chain().focus()
   if (['undo', 'redo'].includes(action)) {
     focus[action]().run()
+  } else if (action.startsWith('set')) {
+    focus[camelCase(action)](attributes).run()
+  } else if (action.startsWith('unset')) {
+    focus[camelCase(action)]().run()
   } else {
     focus['toggle' + pascalCase(action)]().run()
   }
@@ -86,9 +97,9 @@ const isActiveArabicFont = computed(() => {
 })
 const toggleArabicFont = () => {
   if (isActiveArabicFont.value) {
-    editor.value.chain().focus().unsetFontFamily().run()
+    format('unset-font-family')
   } else {
-    editor.value.chain().focus().setFontFamily(arabicFontName).run()
+    format('set-font-family', arabicFontName)
   }
 }
 </script>
@@ -143,6 +154,26 @@ const toggleArabicFont = () => {
         :class="{ active: isActive('underline') }"
         @click="format('underline')">
         <material-icon name="format_underline" size="20" />
+      </button>
+    </div>
+    <div class="menu-group">
+      <button
+        class="menu-item"
+        :class="{ active: isActive({ textAlign: 'left' }) }"
+        @click="format('set-text-align', 'left')">
+        <material-icon name="format_align_left" size="20" />
+      </button>
+      <button
+        class="menu-item"
+        :class="{ active: isActive({ textAlign: 'center' }) }"
+        @click="format('set-text-align', 'center')">
+        <material-icon name="format_align_center" size="20" />
+      </button>
+      <button
+        class="menu-item"
+        :class="{ active: isActive({ textAlign: 'right' }) }"
+        @click="format('set-text-align', 'right')">
+        <material-icon name="format_align_right" size="20" />
       </button>
     </div>
     <div class="menu-group">
