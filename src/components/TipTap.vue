@@ -1,11 +1,13 @@
 <script setup>
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, computed, onMounted } from 'vue'
 import { useEditor, EditorContent, BubbleMenu } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
 import Superscript from '@tiptap/extension-superscript'
 import Subscript from '@tiptap/extension-subscript'
 import Placeholder from '@tiptap/extension-placeholder'
+import FontFamily from '@tiptap/extension-font-family'
+import TextStyle from '@tiptap/extension-text-style'
 import { camelCase, pascalCase } from 'change-case'
 
 const props = defineProps(['modelValue'])
@@ -35,6 +37,8 @@ const editor = useEditor({
     Underline,
     Superscript,
     Subscript,
+    TextStyle,
+    FontFamily,
     Placeholder.configure({
       placeholder: 'Mulai menulis...',
     })
@@ -52,10 +56,10 @@ watch(props.modelValue, (value) => {
   editor.value.commands.setContent(value, false)
 })
 
-const isActive = (action) => {
+const isActive = (action, attributes = {}) => {
   if (!editor.value) return false
   const name = camelCase(action)
-  return editor.value.isActive(name)
+  return editor.value.isActive(name, attributes)
 }
 
 const format = (action) => {
@@ -74,6 +78,18 @@ const can = (action) => {
     return focus[action]().run()
   }
   return focus['toggle' + pascalCase(action)]().run()
+}
+
+const arabicFontName = 'ZekrQuran'
+const isActiveArabicFont = computed(() => {
+  return isActive('text-style', { fontFamily: arabicFontName })
+})
+const toggleArabicFont = () => {
+  if (isActiveArabicFont.value) {
+    editor.value.chain().focus().unsetFontFamily().run()
+  } else {
+    editor.value.chain().focus().setFontFamily(arabicFontName).run()
+  }
 }
 </script>
 
@@ -101,6 +117,14 @@ const can = (action) => {
     </button>
   </bubble-menu>
   <div class="toolbar">
+    <div class="menu-group">
+      <button
+        class="menu-item"
+        :class="{ active: isActiveArabicFont }"
+        @click="toggleArabicFont()">
+        <img src="../assets/icons/abjad_arabic_icon.svg" height="20" />
+      </button>
+    </div>
     <div class="menu-group">
       <button
         class="menu-item"

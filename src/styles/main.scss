@@ -82,8 +82,7 @@ body {
       }
       &:hover:not(:disabled),
       &.active {
-        background: $colorLight;
-        color: $colorGray;
+        background: $colorPrimary;
         border-radius: 4px;
       }
       &:disabled {
@@ -185,6 +184,11 @@ body {
         opacity: 0.3;
         transform: scaleX(-1);
       }
+    }
+
+    // Make arabic text bigger
+    span[style='font-family: ZekrQuran'] {
+      font-size: 18px;
     }
   }
 }
