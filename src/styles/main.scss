@@ -80,11 +80,14 @@ body {
       + .menu-item {
         margin-left: 2px;
       }
-      &:hover,
+      &:hover:not(:disabled),
       &.active {
         background: $colorLight;
         color: $colorGray;
-        border-radius: 2px;
+        border-radius: 4px;
+      }
+      &:disabled {
+        opacity: 0.5;
       }
     }
   }

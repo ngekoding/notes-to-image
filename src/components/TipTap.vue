@@ -66,6 +66,15 @@ const format = (action) => {
     focus['toggle' + pascalCase(action)]().run()
   }
 }
+
+const can = (action) => {
+  if (!editor.value) return true
+  const focus = editor.value.can().chain().focus()
+  if (['undo', 'redo'].includes(action)) {
+    return focus[action]().run()
+  }
+  return focus['toggle' + pascalCase(action)]().run()
+}
 </script>
 
 <template>
@@ -151,12 +160,14 @@ const format = (action) => {
     <div class="menu-group">
       <button
         class="menu-item"
-        @click="format('undo')">
+        @click="format('undo')"
+        :disabled="!can('undo')">
         <material-icon name="undo" size="20" />
       </button>
       <button
         class="menu-item"
-        @click="format('redo')">
+        @click="format('redo')"
+        :disabled="!can('redo')">
         <material-icon name="redo" size="20" />
       </button>
     </div>
