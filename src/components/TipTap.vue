@@ -54,7 +54,7 @@ const editor = useEditor({
   }
 })
 
-watch(props.modelValue, (value) => {
+watch(() => props.modelValue, (value) => {
   const isSame = editor.value.getHTML() === value
 
   if (isSame) return 
