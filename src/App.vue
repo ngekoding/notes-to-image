@@ -3,6 +3,8 @@ import { ref, computed } from 'vue'
 import TipTap from './components/TipTap.vue'
 import { toBlob } from 'html-to-image'
 import { saveAs } from 'file-saver'
+import UAParser from 'ua-parser-js'
+
 
 const content = ref('')
 
@@ -11,7 +13,7 @@ const btnExportText = computed(() => {
   return saving.value ? 'Loading...' : 'Simpan sebagai Gambar'
 })
 
-const save = () => {
+const save = async () => {
   saving.value = true
 
   const el = document.querySelector('.editor-container')
@@ -25,6 +27,22 @@ const save = () => {
   
   const canvasHeight = el.offsetHeight * SCALE
   const canvasWidth = el.offsetWidth * SCALE
+
+  /**
+   * We need to run it twice to get arabic font
+   * Tested on iOS (Chrome & Safari) - WebKit engine
+   */
+  const ua = UAParser()
+
+  if (ua.engine.name == 'WebKit') {
+    await toBlob(el, {
+      canvasWidth: canvasWidth,
+      canvasHeight: canvasHeight,
+      style: {
+        margin: 0,
+      }
+    })
+  }
 
   toBlob(el, {
     canvasWidth: canvasWidth,

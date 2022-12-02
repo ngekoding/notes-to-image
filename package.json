@@ -21,6 +21,7 @@
     "change-case": "^4.1.2",
     "file-saver": "^2.0.5",
     "html-to-image": "^1.10.8",
+    "ua-parser-js": "^1.0.32",
     "vue": "^3.2.41"
   },
   "devDependencies": {
