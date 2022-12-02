@@ -37,7 +37,8 @@ body {
   }
   > footer {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     .btn-export {
       border: none;
       background: $colorPrimary;
@@ -45,9 +46,25 @@ body {
       padding: 10px 15px;
       border-radius: 999px;
       box-shadow: 0 2px 3px #ccc;
+      cursor: pointer;
       &:hover,
       &.loading {
         background: rgba($color: $colorPrimary, $alpha: 0.8);
+      }
+    }
+    .btn-reset {
+      border: none;
+      background: transparent;
+      color: $colorPrimary;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      margin-top: 10px;
+      padding: 10px;
+      cursor: pointer;
+      color: rgba($color: $colorPrimary, $alpha: 0.5);
+      &:hover {
+        color: rgba($color: $colorPrimary, $alpha: 0.7);
       }
     }
   }

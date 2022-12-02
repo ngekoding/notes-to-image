@@ -40,6 +40,10 @@ const save = () => {
     attribution.style.display = 'none'
   })
 }
+
+const reset = () => {
+  content.value = ''
+}
 </script>
 
 <template>
@@ -55,6 +59,10 @@ const save = () => {
       :class="{ loading: saving }"
       @click="save()">
       {{ btnExportText }}
+    </button>
+    <button class="btn-reset" @click="reset()">
+      <material-icon name="restart_alt" size="18" />
+      <span>Bersihkan</span>
     </button>
   </footer>
 </template>
