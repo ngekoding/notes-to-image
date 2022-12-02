@@ -46,7 +46,7 @@ const save = () => {
   <header>
     <material-icon name="sticky_note_2" size="50" />
     <h1>Berbagi Catatan</h1>
-    <p>Powered by <a href="https://ngekoding.github.io" target="_blank">Ngekoding</a></p>
+    <p class="slogan">Cara lebih mudah untuk berbagi kebaikan</p>
   </header>
   <tip-tap v-model="content" />
   <footer>
