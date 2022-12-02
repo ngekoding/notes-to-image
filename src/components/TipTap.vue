@@ -7,7 +7,6 @@ import Underline from '@tiptap/extension-underline'
 import Superscript from '@tiptap/extension-superscript'
 import Subscript from '@tiptap/extension-subscript'
 import Placeholder from '@tiptap/extension-placeholder'
-import FontFamily from '@tiptap/extension-font-family'
 import TextStyle from '@tiptap/extension-text-style'
 import TextAlign from '@tiptap/extension-text-align'
 import SpanClass from '../tiptap-extensions/span-class'
@@ -35,12 +34,14 @@ onMounted(() => {
 const editor = useEditor({
   content: props.modelValue,
   extensions: [
-    StarterKit,
+    StarterKit.configure({
+      heading: false,
+      codeBlock: false,
+    }),
     Underline,
     Superscript,
     Subscript,
     TextStyle,
-    FontFamily,
     SpanClass,
     TextAlign.configure({
       types: ['paragraph'],
