@@ -1,5 +1,6 @@
 <script setup>
 import { ref, watch, computed, onMounted } from 'vue'
+import { camelCase, pascalCase } from 'change-case'
 import { useEditor, EditorContent, BubbleMenu } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
@@ -9,7 +10,7 @@ import Placeholder from '@tiptap/extension-placeholder'
 import FontFamily from '@tiptap/extension-font-family'
 import TextStyle from '@tiptap/extension-text-style'
 import TextAlign from '@tiptap/extension-text-align'
-import { camelCase, pascalCase } from 'change-case'
+import SpanClass from '../tiptap-extensions/span-class'
 
 const props = defineProps(['modelValue'])
 const emit = defineEmits(['update:modelValue'])
@@ -40,6 +41,7 @@ const editor = useEditor({
     Subscript,
     TextStyle,
     FontFamily,
+    SpanClass,
     TextAlign.configure({
       types: ['paragraph'],
     }),
@@ -78,7 +80,7 @@ const format = (action, attributes = {}) => {
   } else if (action.startsWith('unset')) {
     focus[camelCase(action)]().run()
   } else {
-    focus['toggle' + pascalCase(action)]().run()
+    focus['toggle' + pascalCase(action)](attributes).run()
   }
 }
 
@@ -89,18 +91,6 @@ const can = (action) => {
     return focus[action]().run()
   }
   return focus['toggle' + pascalCase(action)]().run()
-}
-
-const arabicFontName = 'ZekrQuran'
-const isActiveArabicFont = computed(() => {
-  return isActive('text-style', { fontFamily: arabicFontName })
-})
-const toggleArabicFont = () => {
-  if (isActiveArabicFont.value) {
-    format('unset-font-family')
-  } else {
-    format('set-font-family', arabicFontName)
-  }
 }
 </script>
 
@@ -127,12 +117,14 @@ const toggleArabicFont = () => {
       <material-icon name="format_underline" size="20" />
     </button>
   </bubble-menu>
-  <div class="toolbar">
+  <div v-if="editor" class="toolbar">
     <div class="menu-group">
       <button
         class="menu-item"
-        :class="{ active: isActiveArabicFont }"
-        @click="toggleArabicFont()">
+        :class="{ 
+          active: editor.getAttributes('textStyle').spanClass?.includes('text-arabic')
+        }"
+        @click="format('spanClass', 'text-arabic')">
         <img src="../assets/icons/abjad_arabic_icon.svg" height="20" />
       </button>
     </div>

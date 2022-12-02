@@ -182,8 +182,8 @@ body {
       }
     }
 
-    // Make arabic text bigger
-    span[style='font-family: ZekrQuran'] {
+    .text-arabic {
+      font-family: 'ZekrQuran';
       font-size: 18px;
       line-height: 30px;
     }
