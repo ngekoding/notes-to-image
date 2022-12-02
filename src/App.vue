@@ -1,12 +1,12 @@
 <script setup>
 import { ref, computed } from 'vue'
-import TipTap from './components/TipTap.vue'
 import { toBlob } from 'html-to-image'
 import { saveAs } from 'file-saver'
+import { useStorage } from '@vueuse/core'
+import TipTap from './components/TipTap.vue'
 import UAParser from 'ua-parser-js'
 
-
-const content = ref('')
+const content = useStorage('berbagi-catatan-content', '')
 
 const saving = ref(false)
 const btnExportText = computed(() => {
