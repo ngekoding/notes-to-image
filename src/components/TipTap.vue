@@ -9,7 +9,7 @@ import Subscript from '@tiptap/extension-subscript'
 import Placeholder from '@tiptap/extension-placeholder'
 import TextStyle from '@tiptap/extension-text-style'
 import TextAlign from '@tiptap/extension-text-align'
-import SpanClass from '../tiptap-extensions/span-class'
+import TextClass from '../tiptap-extensions/text-class'
 
 const props = defineProps(['modelValue'])
 const emit = defineEmits(['update:modelValue'])
@@ -42,7 +42,7 @@ const editor = useEditor({
     Superscript,
     Subscript,
     TextStyle,
-    SpanClass,
+    TextClass,
     TextAlign.configure({
       types: ['paragraph'],
     }),
@@ -123,9 +123,9 @@ const can = (action) => {
       <button
         class="menu-item"
         :class="{ 
-          active: editor.getAttributes('textStyle').spanClass?.includes('text-arabic')
+          active: editor.getAttributes('textClass')?.class?.includes('text-arabic')
         }"
-        @click="format('spanClass', 'text-arabic')">
+        @click="format('textClass', 'text-arabic')">
         <img src="../assets/icons/abjad_arabic_icon.svg" height="20" />
       </button>
     </div>
