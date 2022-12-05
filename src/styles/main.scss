@@ -23,7 +23,7 @@ body {
   > header {
     text-align: center;
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     a {
       color: inherit;
       text-decoration: none;
@@ -70,39 +70,47 @@ body {
   }
 }
 
-.toolbar {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  padding: 0 10px;
-  background: $colorGray;
-  border-radius: 8px;
+.toolbar-container {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: $colorLight;
+  padding-top: 4px;
   margin-left: 20px;
   margin-right: 20px;
-  .menu-group {
-    flex-shrink: 0;
-    padding: 8px 10px;
-    + .menu-group {
-      border-left: 1px solid rgba($color: white, $alpha: 0.3);
-    }
-    .menu-item {
-      font-size: 12px;
-      border: none;
-      background: none;
-      color: white;
-      padding: 2px 4px 0 4px;
-      + .menu-item {
-        margin-left: 2px;
+  border-radius: 0 0 8px 8px;
+  .toolbar {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 0 10px;
+    background: $colorGray;
+    border-radius: 8px;
+    .menu-group {
+      flex-shrink: 0;
+      padding: 8px 10px;
+      + .menu-group {
+        border-left: 1px solid rgba($color: white, $alpha: 0.3);
       }
-      &:hover:not(:disabled),
-      &.active {
-        background: $colorPrimary;
-        border-radius: 4px;
-      }
-      &:disabled {
-        opacity: 0.5;
+      .menu-item {
+        font-size: 12px;
+        border: none;
+        background: none;
+        color: white;
+        padding: 2px 4px 0 4px;
+        + .menu-item {
+          margin-left: 2px;
+        }
+        &:hover:not(:disabled),
+        &.active {
+          background: $colorPrimary;
+          border-radius: 4px;
+        }
+        &:disabled {
+          opacity: 0.5;
+        }
       }
     }
   }
