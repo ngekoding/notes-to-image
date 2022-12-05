@@ -22,13 +22,17 @@ const editorRef = ref(null)
  * So here is the alternative.
  */
 onMounted(() => {
+  const cornerImageContainer = document.createElement('div')
+  cornerImageContainer.className = 'frame-corner-container'
+
   const cornerImage = new Image()
   const cornerImageUrl = new URL('../assets/frame-top-left-corner.svg', import.meta.url).href
   cornerImage.src = cornerImageUrl
   cornerImage.className = 'frame-corner'
   for (let i = 1; i <= 4; i++) {
-    editorRef.value.$el.appendChild(cornerImage.cloneNode(true))
+    cornerImageContainer.appendChild(cornerImage.cloneNode(true))
   }
+  editorRef.value.$el.appendChild(cornerImageContainer)
 })
 
 const editor = useEditor({
@@ -211,6 +215,11 @@ const can = (action) => {
           :class="{ active: isActive('blockquote') }"
           @click="format('blockquote')">
           <material-icon name="format_quote" size="20" />
+        </button>
+        <button
+          class="menu-item"
+          @click="format('set-horizontal-rule')">
+          <material-icon name="insert_page_break" size="20" />
         </button>
       </div>
       <div class="menu-group">

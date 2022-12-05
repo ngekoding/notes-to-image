@@ -16,6 +16,22 @@ body {
   font-size: 14px;
 }
 
+.btn {
+  border: none;
+  background: $colorPrimary;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 999px;
+  cursor: pointer;
+  &:hover,
+  &.loading {
+    background: rgba($color: $colorPrimary, $alpha: 0.8);
+  }
+  &-sm {
+    padding: 4px 10px;
+  }
+}
+
 #app {
   max-width: 620px;
   margin: 0 auto;
@@ -40,17 +56,8 @@ body {
     flex-direction: column;
     align-items: center;
     .btn-export {
-      border: none;
-      background: $colorPrimary;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 999px;
+      @extend .btn;
       box-shadow: 0 2px 3px #ccc;
-      cursor: pointer;
-      &:hover,
-      &.loading {
-        background: rgba($color: $colorPrimary, $alpha: 0.8);
-      }
     }
     .btn-reset {
       border: none;
@@ -140,7 +147,8 @@ body {
   }
 }
 
-.editor-container {
+.editor-container,
+.preview-result {
   padding: 20px;
   background: $colorLight;
   footer {
@@ -178,46 +186,128 @@ body {
       }
     }
   }
-  .ProseMirror {
-    padding: 15px;
-    border: 1px solid $colorGray;
+}
 
-    p.is-editor-empty:first-child::before {
-      content: attr(data-placeholder);
-      float: left;
-      color: #ccc;
-      pointer-events: none;
-      height: 0;
+.ProseMirror,
+.preview-item {
+  padding: 15px;
+  border: 1px solid $colorGray;
+
+  p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    color: #ccc;
+    pointer-events: none;
+    height: 0;
+  }
+
+  > * + * {
+    margin-top: 0;
+  }
+
+  ul,
+  ol {
+    padding: 0 1rem;
+  }
+
+  blockquote {
+    padding-left: 32px;
+    position: relative;
+    &::before {
+      content: 'format_quote';
+      font-family: 'Material Icons';
+      position: absolute;
+      font-size: 35px;
+      left: -5px;
+      top: -7px;
+      opacity: 0.3;
+      transform: scaleX(-1);
     }
-  
-    > * + * {
-      margin-top: 0;
+  }
+
+  .text-arabic {
+    font-family: 'ZekrQuran';
+    font-size: 18px;
+    line-height: 30px;
+  }
+
+  hr {
+    height: 15px;
+    background: transparent;
+    border: 1px dashed $colorPrimary;
+    margin: 20px 0;
+    position: relative;
+    &::after {
+      content: 'HALAMAN BARU';
+      font-size: 10px;
+      position: absolute;
+      left: 50%;
+      top: 1px;
+      transform: translateX(-50%);
+      letter-spacing: 1px;
     }
-  
-    ul,
-    ol {
-      padding: 0 1rem;
-    }
-  
-    blockquote {
-      padding-left: 32px;
-      position: relative;
-      &::before {
-        content: 'format_quote';
-        font-family: 'Material Icons';
-        position: absolute;
-        font-size: 35px;
-        left: -5px;
-        top: -7px;
-        opacity: 0.3;
-        transform: scaleX(-1);
+  }
+}
+
+.preview {
+  &-header {
+    background: $colorGray;
+    border-radius: 8px;
+    padding: 5px 10px;
+    margin: 0 20px;
+    display: flex;
+    align-items: center;
+    color: white;
+    .btn-back {
+      background: white;
+      border: none;
+      color: $colorGray;
+      margin-right: 10px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      &:hover {
+        color: $colorPrimary
       }
     }
-
-    .text-arabic {
-      font-family: 'ZekrQuran';
-      font-size: 18px;
-      line-height: 30px;
+    &--title {
+      flex: 1;
+    }
+    &--filename-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background: $colorPrimary;
+      border-radius: 999px;
+      overflow: hidden;
+      label {
+        font-size: 12px;
+        padding-left: 10px;
+        padding-right: 4px;
+      }
+      input {
+        flex: 1;
+        border: none;
+        padding: 4px;
+        color: $colorPrimary;
+      }
+    }
+  }
+  &-result {
+    padding: 0;
+    &-item-container {
+      .download-container {
+        display: flex;
+        justify-content: center;
+        .btn-download {
+          @extend .btn;
+        }
+      }
+    }
+    &-item {
+      padding: 20px;
+      background: $colorLight;
     }
   }
 }
