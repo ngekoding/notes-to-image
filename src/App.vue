@@ -45,6 +45,7 @@ const save = async (selector, index) => {
                 (previews.value.length > 1 ? '-' + (index + 1) : '')
 
   const SCALE = 2.5
+  const el = document.querySelector(previewSelector)
 
   /**
    * We need to run it twice to get arabic font
@@ -60,8 +61,6 @@ const save = async (selector, index) => {
       }
     })
   }
-  
-  const el = document.querySelector(previewSelector)
   
   toBlob(el, {
     pixelRatio: SCALE,
