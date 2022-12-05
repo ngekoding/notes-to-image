@@ -257,25 +257,27 @@ body {
     margin: 0 20px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    gap: 15px;
     color: white;
-    .btn-back {
-      background: white;
-      border: none;
-      color: $colorGray;
-      margin-right: 10px;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      cursor: pointer;
-      &:hover {
-        color: $colorPrimary
+    &--title {
+      display: flex;
+      align-items: center;
+      .btn-back {
+        background: white;
+        border: none;
+        color: $colorGray;
+        margin-right: 10px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        cursor: pointer;
+        &:hover {
+          color: $colorPrimary
+        }
       }
     }
-    &--title {
-      flex: 1;
-    }
     &--filename-wrap {
-      flex: 1;
       display: flex;
       align-items: center;
       background: $colorPrimary;
@@ -285,11 +287,12 @@ body {
         font-size: 12px;
         padding-left: 10px;
         padding-right: 4px;
+        flex-shrink: 0;
       }
       input {
-        flex: 1;
+        width: 100%;
         border: none;
-        padding: 4px;
+        padding: 4px 12px 4px 8px;
         color: $colorPrimary;
       }
     }

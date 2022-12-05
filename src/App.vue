@@ -103,10 +103,12 @@ const reset = () => {
   <!-- Result preview -->
   <div v-else class="preview">
     <header class="preview-header">
-      <button class="btn-back" @click="resetPreviews()">
-        <material-icon name="arrow_back" size="18" />
-      </button>
-      <h4 class="preview-header--title">Pratinjau</h4>
+      <div class="preview-header--title">
+        <button class="btn-back" @click="resetPreviews()">
+          <material-icon name="arrow_back" size="18" />
+        </button>
+        <h4 class="title">Pratinjau</h4>
+      </div>
       <div class="preview-header--filename-wrap">
         <label>Nama File:</label>
         <input type="text" spellcheck="false" v-model="filename" />
