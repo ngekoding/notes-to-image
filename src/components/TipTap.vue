@@ -103,6 +103,13 @@ const can = (action) => {
     :tippy-options="{ duration: 100 }"
     class="bubble-menu">
     <button
+      :class="{ 
+        active: editor.getAttributes('textClass')?.class?.includes('text-arabic')
+      }"
+      @click="format('textClass', 'text-arabic')">
+      <img src="../assets/icons/abjad_arabic_icon_bold.svg" height="18" />
+    </button>
+    <button
       :class="{ active: isActive('bold') }"
       @click="format('bold')">
       <material-icon name="format_bold" size="20" />
@@ -127,7 +134,7 @@ const can = (action) => {
             active: editor.getAttributes('textClass')?.class?.includes('text-arabic')
           }"
           @click="format('textClass', 'text-arabic')">
-          <img src="../assets/icons/abjad_arabic_icon.svg" height="20" />
+          <img src="../assets/icons/abjad_arabic_icon_bold.svg" height="18" />
         </button>
       </div>
       <div class="menu-group">

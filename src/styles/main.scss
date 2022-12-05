@@ -99,7 +99,11 @@ body {
         border: none;
         background: none;
         color: white;
-        padding: 2px 4px 0 4px;
+        height: 24px;
+        padding-left: 4px;
+        padding-right: 4px;
+        display: inline-flex;
+        align-items: center;
         + .menu-item {
           margin-left: 2px;
         }
