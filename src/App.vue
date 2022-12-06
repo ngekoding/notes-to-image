@@ -26,6 +26,12 @@ const buildPreviews = () => {
 
   previewsSaving.value = Array(elements.length).fill(false)
   previews.value = elements
+
+  // Go to top
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  })
 }
 
 const resetPreviews = () => {
