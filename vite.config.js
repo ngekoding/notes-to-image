@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => ({
       includeAssets: ['logo-outlined.svg', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
         name: 'Berbagi Catatan',
-        short_name: 'Catatan',
+        short_name: 'Berbagi Catatan',
         description: 'Cara lebih mudah untuk berbagi kebaikan',
         theme_color: '#7D7268',
         icons: [
