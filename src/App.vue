@@ -4,6 +4,7 @@ import { toBlob } from 'html-to-image'
 import { saveAs } from 'file-saver'
 import { useStorage } from '@vueuse/core'
 import TipTap from './components/TipTap.vue'
+import InstallPrompt from './components/InstallPrompt.vue'
 import UAParser from 'ua-parser-js'
 
 const content = useStorage('berbagi-catatan-content', '')
@@ -88,6 +89,8 @@ const reset = () => {
 </script>
 
 <template>
+  <!-- Install prompt -->
+  <install-prompt />
   <header>
     <material-icon name="sticky_note_2" size="50" />
     <h1>Berbagi Catatan</h1>

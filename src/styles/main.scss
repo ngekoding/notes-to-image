@@ -1,6 +1,5 @@
-$colorPrimary: #7D7268;
-$colorLight: #FCF9F2;
-$colorGray: #D1CAC2;
+@import 'setup/variables';
+@import 'modules/install-prompt';
 
 * {
   padding: 0;
@@ -33,9 +32,9 @@ body {
 }
 
 #app {
-  max-width: 620px;
+  max-width: 640px;
   margin: 0 auto;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
   > header {
     text-align: center;
     margin-top: 20px;
