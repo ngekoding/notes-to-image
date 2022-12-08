@@ -1,22 +1,32 @@
 <script setup>
 import { ref } from 'vue'
-import Cookies from 'js-cookie'
+import { useStorage } from '@vueuse/core'
 import 'animate.css'
 
 const defferedPrompt = ref(null)
+const installPrompt = useStorage('add-to-home-screen', { expiry: 0 })
+
+const showInstallPrompt = () => {
+  return (
+    !installPrompt.value ||
+    (installPrompt.value && Date.now() > installPrompt.value.expiry)
+  )
+}
 
 const install = () => {
   defferedPrompt.value?.prompt()
 }
 
 const dismiss = () => {
-  Cookies.set('add-to-home-screen', null, { expires: 15 })
   defferedPrompt.value = null
+  installPrompt.value = {
+    expiry: Date.now() + (15 * 86400000) // Hide for 15 days
+  }
 }
 
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault()
-  if (Cookies.get('add-to-home-screen') === undefined) {
+  if (showInstallPrompt()) {
     defferedPrompt.value = e;
   }
 })
