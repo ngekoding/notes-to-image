@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useStorage } from '@vueuse/core'
 import 'animate.css'
 
-const defferedPrompt = ref(null)
+const deferredPrompt = ref(null)
 const installPrompt = useStorage('add-to-home-screen', { expiry: 0 })
 
 const showInstallPrompt = () => {
@@ -14,11 +14,11 @@ const showInstallPrompt = () => {
 }
 
 const install = () => {
-  defferedPrompt.value?.prompt()
+  deferredPrompt.value?.prompt()
 }
 
 const dismiss = () => {
-  defferedPrompt.value = null
+  deferredPrompt.value = null
   installPrompt.value = {
     expiry: Date.now() + (15 * 86400000) // Hide for 15 days
   }
@@ -27,7 +27,7 @@ const dismiss = () => {
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault()
   if (showInstallPrompt()) {
-    defferedPrompt.value = e;
+    deferredPrompt.value = e;
   }
 })
 </script>
@@ -36,7 +36,7 @@ window.addEventListener('beforeinstallprompt', e => {
   <Transition
     enter-active-class="animate__animated animate__fadeInUp"
     leave-active-class="animate__animated animate__fadeOutDown">
-    <div v-if="defferedPrompt" class="install-prompt">
+    <div v-if="deferredPrompt" class="install-prompt">
       <h3 class="prompt-title">Install Berbagi Catatan</h3>
       <p class="prompt-description">Anda dapat menginstall aplikasi ini seperti aplikasi lain pada umumnya, sehingga lebih mudah untuk digunakan.</p>
       <div class="actions">
