@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.ngekoding.berbagicatatan",
+      "sha256_cert_fingerprints": ["BA:D4:F6:44:FD:D8:F6:9E:B0:2B:F5:5B:57:E2:03:52:82:BF:44:A5:5C:8F:C2:30:7C:F7:91:39:DB:26:74:E6"]
+    }
+  }
+]
