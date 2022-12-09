@@ -4,7 +4,10 @@
     "target": {
       "namespace": "android_app",
       "package_name": "io.github.ngekoding.berbagicatatan",
-      "sha256_cert_fingerprints": ["BA:D4:F6:44:FD:D8:F6:9E:B0:2B:F5:5B:57:E2:03:52:82:BF:44:A5:5C:8F:C2:30:7C:F7:91:39:DB:26:74:E6"]
+      "sha256_cert_fingerprints": [
+        "BA:D4:F6:44:FD:D8:F6:9E:B0:2B:F5:5B:57:E2:03:52:82:BF:44:A5:5C:8F:C2:30:7C:F7:91:39:DB:26:74:E6",
+        "28:00:9A:32:1E:33:E3:A9:63:08:34:F0:62:1E:F8:87:03:0E:9D:A8:73:C3:6A:6F:FA:F5:7A:D4:51:43:E3:F6"
+      ]
     }
   }
 ]
