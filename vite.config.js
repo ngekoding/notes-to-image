@@ -19,8 +19,18 @@ export default defineConfig(({ mode }) => ({
       manifest: {
         name: 'Berbagi Catatan',
         short_name: 'Berbagi Catatan',
+        start_url: '/notes-to-image/',
+        scope: '/notes-to-image/',
         description: 'Cara lebih mudah untuk berbagi kebaikan',
         theme_color: '#7D7268',
+        background_color: '#ffffff',
+        lang: 'id',
+        dir: 'ltr',
+        display: 'standalone',
+        categories: [
+          'productivity',
+          'utilities'
+        ],
         icons: [
           {
             src: 'pwa-192x192.png',
@@ -36,7 +46,20 @@ export default defineConfig(({ mode }) => ({
             src: 'pwa-512x512.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any maskable'
+            purpose: 'maskable'
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any'
+          }
+        ],
+        screenshots: [
+          {
+            src: 'screenshot.jpg',
+            sizes: '719x1280',
+            type: 'image/jpg'
           }
         ]
       }
