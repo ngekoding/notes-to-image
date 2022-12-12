@@ -18,16 +18,66 @@ body {
 .btn {
   border: none;
   background: $colorPrimary;
+  border: 1px solid $colorPrimary;
   color: white;
   padding: 10px 15px;
   border-radius: 999px;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   &:hover,
   &.loading {
     background: rgba($color: $colorPrimary, $alpha: 0.8);
+    border-color: rgba($color: $colorPrimary, $alpha: 0.8);
   }
   &-sm {
-    padding: 4px 10px;
+    padding: 6px 10px;
+  }
+  + .btn {
+    margin-left: 4px;
+  }
+}
+
+.btn-secondary {
+  @extend .btn;
+  background: white;
+  color: $colorPrimary;
+  border: 1px solid $colorPrimary;
+  &:hover,
+  &.loading {
+    background: rgba($color: white, $alpha: 0.7);
+  }
+}
+
+.btn-share-all {
+  @extend .btn-secondary;
+  border: none;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.btn-group {
+  button:first-child {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-right: none;
+  }
+  button:last-child {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-left: none;
+  }
+  button:not(:first-child):not(:last-child) {
+    border-radius: 0 !important;
+    border-left: none;
+    border-right: none;
+  }
+  button + button {
+    margin-left: 0 !important;
   }
 }
 
@@ -248,7 +298,28 @@ body {
   }
 }
 
+.preview-loading {
+  z-index: 999;
+  position: absolute;
+  background: $colorLight;
+  left: 0;
+  right: 0;
+  top: 175px;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .message {
+    margin-top: 10px;
+    text-align: center;
+  }
+}
+
 .preview {
+  &.with-share-all {
+    padding-bottom: 50px;
+  }
   &-header {
     background: $colorGray;
     border-radius: 8px;
@@ -303,9 +374,7 @@ body {
       .download-container {
         display: flex;
         justify-content: center;
-        .btn-download {
-          @extend .btn;
-        }
+        margin-top: -10px;
       }
     }
     &-item {
