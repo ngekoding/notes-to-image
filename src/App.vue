@@ -2,13 +2,23 @@
 import { ref, computed, onMounted, nextTick } from 'vue'
 import { toBlob } from 'html-to-image'
 import { saveAs } from 'file-saver'
-import { useStorage, useShare } from '@vueuse/core'
+import { useStorage, useShare, useElementBounding } from '@vueuse/core'
 import TipTap from './components/TipTap.vue'
 import InstallPrompt from './components/InstallPrompt.vue'
 import PreviewLoader from 'vue-spinner/src/BeatLoader.vue'
 import UAParser from 'ua-parser-js'
+import scrollLock from 'scroll-lock'
 
 const content = useStorage('berbagi-catatan-content', '')
+
+const previewResultRef = ref(null)
+const { top: previewResultTop } = useElementBounding(previewResultRef)
+
+const previewLoadingStyle = computed(() => {
+  return {
+    top: previewResultTop.value + 'px'
+  }
+})
 
 const previews = ref([])
 const blobPreviews = ref([])
@@ -35,7 +45,6 @@ const buildBlob = async (el) => {
 
 const buildPreviews = async () => {
   const el = document.querySelector('.editor-container .ProseMirror')
-  const body = document.querySelector('body')
 
   const str = el.innerHTML
   const elements = str.split(/<hr\s+[^>]*>/g)
@@ -47,8 +56,8 @@ const buildPreviews = async () => {
 
   await nextTick()
   
-  // Disable body scroll
-  body.style.overflow = 'hidden'
+  // Disable page scroll
+  scrollLock.disablePageScroll()
   
   /**
    * For easy download and share
@@ -81,9 +90,9 @@ const buildPreviews = async () => {
           // Hide attribution
           attribution.style.display = 'none'
 
-          // Enable body scroll when completed
+          // Enable page scroll when completed
           if (index == previews.value.length - 1) {
-            body.style.overflow = 'hidden'
+            scrollLock.enablePageScroll()
           }
         })
       })
@@ -97,9 +106,9 @@ const buildPreviews = async () => {
         // Hide attribution
         attribution.style.display = 'none'
 
-        // Enable body scroll when completed
+        // Enable page scroll when completed
         if (index == previews.value.length - 1) {
-          body.style.overflow = 'auto'
+          scrollLock.enablePageScroll()
         }
       })
     }
@@ -108,6 +117,7 @@ const buildPreviews = async () => {
 
 const resetPreviews = () => {
   previews.value = []
+  scrollLock.enablePageScroll()
 }
 
 const getFilename = (index) => {
@@ -177,7 +187,10 @@ const doShare = (index = undefined) => {
   <!-- Result preview -->
   <div v-else class="preview" :class="{ 'with-share-all': previews.length > 1 }">
     <!-- Overlay loading -->
-    <div v-if="previews.length != blobPreviews.length" class="preview-loading">
+    <div 
+      v-if="previews.length != blobPreviews.length"
+      class="preview-loading"
+      :style="previewLoadingStyle">
       <preview-loader color="#7D7268" />
       <p class="message">Menyiapkan pratinjau...</p>
     </div>
@@ -193,7 +206,7 @@ const doShare = (index = undefined) => {
         <input type="text" spellcheck="false" v-model="filename" />
       </div>
     </header>
-    <div class="preview-result">
+    <div ref="previewResultRef" class="preview-result">
       <div 
         v-for="(item, index) in previews"
         :key="('preview-' + index)"

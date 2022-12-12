@@ -28,6 +28,7 @@
     "change-case": "^4.1.2",
     "file-saver": "^2.0.5",
     "html-to-image": "^1.10.8",
+    "scroll-lock": "^2.1.5",
     "ua-parser-js": "^1.0.32",
     "vue": "^3.2.41",
     "vue-spinner": "^1.0.4"
