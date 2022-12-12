@@ -35,6 +35,7 @@ const buildBlob = async (el) => {
 
 const buildPreviews = async () => {
   const el = document.querySelector('.editor-container .ProseMirror')
+  const body = document.querySelector('body')
 
   const str = el.innerHTML
   const elements = str.split(/<hr\s+[^>]*>/g)
@@ -42,12 +43,12 @@ const buildPreviews = async () => {
   previews.value = elements
 
   // Go to top
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  })
+  window.scrollTo(0, 0)
 
   await nextTick()
+  
+  // Disable body scroll
+  body.style.overflow = 'hidden'
   
   /**
    * For easy download and share
@@ -79,6 +80,11 @@ const buildPreviews = async () => {
 
           // Hide attribution
           attribution.style.display = 'none'
+
+          // Enable body scroll when completed
+          if (index == previews.value.length - 1) {
+            body.style.overflow = 'hidden'
+          }
         })
       })
     } else {
@@ -90,6 +96,11 @@ const buildPreviews = async () => {
 
         // Hide attribution
         attribution.style.display = 'none'
+
+        // Enable body scroll when completed
+        if (index == previews.value.length - 1) {
+          body.style.overflow = 'auto'
+        }
       })
     }
   }
