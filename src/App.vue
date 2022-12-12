@@ -216,7 +216,7 @@ const doShare = (index = undefined) => {
               <material-icon name="download" size="16" />
               <span>Unduh</span>
             </button>
-            <button v-if="isShareSupported" class="btn-secondary btn-sm" @click="doShare(index)">
+            <button v-if="isShareSupported" class="btn btn-sm" @click="doShare(index)">
               <material-icon name="share" size="16" />
               <span>Bagikan</span>
             </button>
