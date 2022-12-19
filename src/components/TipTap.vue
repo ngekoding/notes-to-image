@@ -180,6 +180,12 @@ const can = (action) => {
           @click="format('set-text-align', 'right')">
           <material-icon name="format_align_right" size="20" />
         </button>
+        <button
+          class="menu-item"
+          :class="{ active: isActive({ textAlign: 'justify' }) }"
+          @click="format('set-text-align', 'justify')">
+          <material-icon name="format_align_justify" size="20" />
+        </button>
       </div>
       <div class="menu-group">
         <button
