@@ -214,8 +214,11 @@ const doShare = (index = undefined) => {
         <div :class="['preview-result-item', `preview-result-item-${index}`]">
           <div class="editor-frame">
             <div v-html="frameCornerContainer"></div>
-            <div class="preview-item">
+            <div class="preview-item" :class="{ 'with-paging': previews.length > 1 }">
               <div v-html="item"></div>
+            </div>
+            <div v-if="previews.length > 1" class="preview-paging">
+              Bagian {{ index + 1 }} dari {{ previews.length }}
             </div>
           </div>
           <footer>

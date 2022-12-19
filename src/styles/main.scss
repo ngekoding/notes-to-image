@@ -239,6 +239,10 @@ body {
   padding: 15px;
   border: 1px solid $colorGray;
 
+  &.with-paging {
+    padding-bottom: 24px;
+  }
+
   p.is-editor-empty:first-child::before {
     content: attr(data-placeholder);
     float: left;
@@ -378,5 +382,17 @@ body {
       padding: 20px;
       background: $colorLight;
     }
+  }
+  &-paging {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    color: white;
+    background: $colorPrimary;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
   }
 }
