@@ -111,27 +111,27 @@ const can = (action) => {
         active: editor.getAttributes('textClass')?.class?.includes('text-arabic')
       }"
       @click="format('textClass', 'text-arabic')">
-      <img src="../assets/icons/abjad_arabic_icon_bold.svg" height="18" />
+      <img src="../assets/icons/abjad_arabic_icon_bold.svg" height="22" />
     </button>
     <button
       :class="{ active: isActive({ textAlign: 'right' }) }"
       @click="format('set-text-align', 'right')">
-      <material-icon name="format_align_right" size="18" />
+      <material-icon name="format_align_right" size="22" />
     </button>
     <button
       :class="{ active: isActive('bold') }"
       @click="format('bold')">
-      <material-icon name="format_bold" size="20" />
+      <material-icon name="format_bold" size="24" />
     </button>
     <button
       :class="{ active: isActive('italic') }"
       @click="format('italic')">
-      <material-icon name="format_italic" size="20" />
+      <material-icon name="format_italic" size="24" />
     </button>
     <button
       :class="{ active: isActive('underline') }"
       @click="format('underline')">
-      <material-icon name="format_underline" size="20" />
+      <material-icon name="format_underline" size="24" />
     </button>
   </bubble-menu>
   <div v-if="editor" class="toolbar-container">
