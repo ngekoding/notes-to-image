@@ -1,5 +1,6 @@
 @import 'setup/variables';
 @import 'modules/install-prompt';
+@import 'modules/material-icons';
 
 * {
   padding: 0;
@@ -264,8 +265,8 @@ body {
     padding-left: 32px;
     position: relative;
     &::before {
+      @extend .material-icons;
       content: 'format_quote';
-      font-family: 'Material Icons';
       position: absolute;
       font-size: 35px;
       left: -5px;
