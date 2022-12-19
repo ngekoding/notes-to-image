@@ -114,6 +114,11 @@ const can = (action) => {
       <img src="../assets/icons/abjad_arabic_icon_bold.svg" height="18" />
     </button>
     <button
+      :class="{ active: isActive({ textAlign: 'right' }) }"
+      @click="format('set-text-align', 'right')">
+      <material-icon name="format_align_right" size="18" />
+    </button>
+    <button
       :class="{ active: isActive('bold') }"
       @click="format('bold')">
       <material-icon name="format_bold" size="20" />
