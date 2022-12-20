@@ -8,6 +8,7 @@ import InstallPrompt from './components/InstallPrompt.vue'
 import PreviewLoader from 'vue-spinner/src/BeatLoader.vue'
 import UAParser from 'ua-parser-js'
 import scrollLock from 'scroll-lock'
+import { htmlToElement, htmlToElements } from '@/helpers/html-to-element'
 
 const content = useStorage('berbagi-catatan-content', '')
 
@@ -49,7 +50,30 @@ const buildPreviews = async () => {
   const str = el.innerHTML
   const elements = str.split(/<hr\s+[^>]*>/g)
 
-  previews.value = elements
+  /**
+   * Solution for better ordered list marker
+   * The html-to-image library currently not supporting for css counter
+   * So it is the alternative solution
+   */
+  const fixedElements = []
+  for (let i = 0; i < elements.length; i++) {
+    const fixedElement = htmlToElements(elements[i])
+    fixedElement.forEach(entry => {
+      if (entry.tagName === 'OL') {
+        const start = entry.getAttribute('start') ? parseInt(entry.getAttribute('start')) : 1
+        entry.childNodes.forEach((listItem, listItemIndex) => {
+          listItem.prepend(htmlToElement(`<span>${start + listItemIndex}.</span>`))
+        })
+      }
+    })
+    
+    const tmp = document.createElement('div')
+    tmp.append(...fixedElement)
+    
+    fixedElements.push(tmp.innerHTML)
+  }
+
+  previews.value = fixedElements
 
   // Go to top
   window.scrollTo(0, 0)

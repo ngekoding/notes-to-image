@@ -261,6 +261,12 @@ body {
     padding: 0 1rem;
   }
 
+  /* ----------------------------
+   * UNSUPPORTED FOR NESTED LIST 
+   * ----------------------------
+   * Currently we don't handle
+   * for nested list
+   */
   ol {
     padding: 0;
     list-style-position: inside;
@@ -276,7 +282,10 @@ body {
     }
   }
 
-  /* Temporary solution */
+  /* 
+   * Temporary solution
+   * Currently we just handle until 1000
+   */
   @for $i from 2 through 1000 {
     ol[start="#{$i}"] {
       counter-reset: li $i - 1;
@@ -320,6 +329,14 @@ body {
       letter-spacing: 1px;
     }
   }
+}
+
+/*
+ * Custom styles for preview-item
+ * We manipulate the marker from the DOM
+ */
+.preview-item ol li::before {
+  display: none;
 }
 
 .preview-loading {
