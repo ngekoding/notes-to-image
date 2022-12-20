@@ -261,6 +261,28 @@ body {
     padding: 0 1rem;
   }
 
+  ol {
+    padding: 0;
+    list-style-position: inside;
+    counter-reset: li;
+    li {
+      display: grid;
+      grid-template-columns: min-content 1fr;
+      gap: 5px;
+      counter-increment: li;
+      &::before {
+        content: counter(li) '.';
+      }
+    }
+  }
+
+  /* Temporary solution */
+  @for $i from 2 through 1000 {
+    ol[start="#{$i}"] {
+      counter-reset: li $i - 1;
+    }
+  }
+
   blockquote {
     padding-left: 32px;
     position: relative;
