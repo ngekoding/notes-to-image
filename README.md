@@ -2,6 +2,10 @@
 
 Convert text notes to image for easily sharing.
 
+## Introduction
+
+Watch the app introduction here [Perkenalan Aplikasi Berbagi Catatan](https://youtu.be/VI3LPhnxi8k).
+
 ## Screenshots
 
 Here is some screenshots of the app and the image result.
