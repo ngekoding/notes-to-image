@@ -5,7 +5,8 @@
 
 import {
   Mark,
-  getMarkAttributes
+  getMarkAttributes,
+  mergeAttributes
 } from '@tiptap/core';
 
 export const TextClass = Mark.create({
@@ -37,7 +38,14 @@ export const TextClass = Mark.create({
   },
 
   renderHTML({ HTMLAttributes }) {
-    return ['span', HTMLAttributes, 0];
+    /**
+     * Temporary solution to automatically adding dir="rtl"
+     * for tags which contains text-arabic class
+     * 
+     * Ref: https://github.com/amirhhashemi/tiptap-text-direction/issues/12
+     */ 
+    const textArabicExists = HTMLAttributes?.class?.includes('text-arabic')
+    return ['span', mergeAttributes(HTMLAttributes, { ...(textArabicExists && {dir: 'rtl'}) }), 0];
   },
 
   addCommands() {
